@@ -146,12 +146,15 @@ void binder_close(struct binder_state *bs)
 
 int binder_become_context_manager(struct binder_state *bs)
 {
+#if 0 // HACKED
     struct flat_binder_object obj;
     memset(&obj, 0, sizeof(obj));
     obj.flags = FLAT_BINDER_FLAG_TXN_SECURITY_CTX;
 
     int result = ioctl(bs->fd, BINDER_SET_CONTEXT_MGR_EXT, &obj);
+#endif
 
+    int result = 1;
     // fallback to original method
     if (result != 0) {
         android_errorWriteLog(0x534e4554, "121035042");

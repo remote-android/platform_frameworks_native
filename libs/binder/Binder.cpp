@@ -206,6 +206,7 @@ bool BBinder::isRequestingSid()
 
 void BBinder::setRequestingSid(bool requestingSid)
 {
+    requestingSid = false; // HACKED
     Extras* e = mExtras.load(std::memory_order_acquire);
 
     if (!e) {
