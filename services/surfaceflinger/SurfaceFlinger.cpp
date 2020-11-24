@@ -1741,7 +1741,7 @@ void SurfaceFlinger::rebuildLayerStacks() {
                                 layer->visibleNonTransparentRegion));
                         drawRegion.andSelf(bounds);
                         if (!drawRegion.isEmpty()) {
-                            layersSortedByZ.add(layer);
+                            if (!displayDevice->isPrimary()) layersSortedByZ.add(layer); // HACKED
                         } else {
                             // Clear out the HWC layer if this layer was
                             // previously visible, but no longer is
