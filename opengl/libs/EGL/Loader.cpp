@@ -458,6 +458,8 @@ static void* load_system_driver(const char* kind, const char* suffix, const bool
         //      libGLES_*.so, or:
         //      libEGL_*.so, libGLESv1_CM_*.so, libGLESv2_*.so
         libraryName += std::string("_");
+        auto prop = base::GetProperty("qemu.gles.vendor", "swiftshader");
+        libraryName.append(prop); // HACKED
     }
     std::string absolutePath = MatchFile::find(libraryName.c_str(), exact);
     if (absolutePath.empty()) {
