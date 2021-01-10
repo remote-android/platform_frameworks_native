@@ -2208,7 +2208,7 @@ void SurfaceFlinger::rebuildLayerStacks() {
                                 layer->visibleNonTransparentRegion));
                         drawRegion.andSelf(bounds);
                         if (!drawRegion.isEmpty()) {
-                            needsOutputLayer = true;
+                            if (!displayDevice->isPrimary()) needsOutputLayer = true; // HACKED
                         }
                     }
 
