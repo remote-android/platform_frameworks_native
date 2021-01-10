@@ -1923,6 +1923,7 @@ void SurfaceFlinger::onMessageRefresh() {
     const auto& displays = ON_MAIN_THREAD(mDisplays);
     refreshArgs.outputs.reserve(displays.size());
     for (const auto& [_, display] : displays) {
+        if (display->isPrimary()) continue; // HACKED
         refreshArgs.outputs.push_back(display->getCompositionDisplay());
     }
     mDrawingState.traverseInZOrder([&refreshArgs](Layer* layer) {
