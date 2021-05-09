@@ -149,11 +149,14 @@ bool ProcessState::becomeContextManager()
 {
     AutoMutex _l(mLock);
 
+#if 0 // HACKED
     flat_binder_object obj {
         .flags = FLAT_BINDER_FLAG_TXN_SECURITY_CTX,
     };
 
     int result = ioctl(mDriverFD, BINDER_SET_CONTEXT_MGR_EXT, &obj);
+#endif
+    status_t result = 1;
 
     // fallback to original method
     if (result != 0) {
