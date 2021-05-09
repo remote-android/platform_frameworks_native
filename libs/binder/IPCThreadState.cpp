@@ -1265,7 +1265,8 @@ status_t IPCThreadState::executeCommand(int32_t cmd)
             clearPropagateWorkSource();
 
             mCallingPid = tr.sender_pid;
-            mCallingSid = reinterpret_cast<const char*>(tr_secctx.secctx);
+            //mCallingSid = reinterpret_cast<const char*>(tr_secctx.secctx);
+            mCallingSid = "HACKED";
             mCallingUid = tr.sender_euid;
             mLastTransactionBinderFlags = tr.flags;
 
