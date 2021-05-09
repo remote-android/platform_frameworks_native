@@ -417,6 +417,7 @@ status_t InstalldNativeService::dump(int fd, const Vector<String16> & /* args */
  */
 static int restorecon_app_data_lazy(const std::string& path, const std::string& seInfo, uid_t uid,
         bool existing) {
+    se_hack1(0);
     int res = 0;
     char* before = nullptr;
     char* after = nullptr;
