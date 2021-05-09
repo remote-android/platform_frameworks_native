@@ -340,14 +340,6 @@ static void* load_system_driver(const char* kind) {
                     result = std::string("/vendor/lib/egl/lib") + kind + "_emulation.so";
 #endif
                     return result;
-                case 2:
-                    // Use guest side swiftshader library
-#if defined(__LP64__)
-                    result = std::string("/vendor/lib64/egl/lib") + kind + "_swiftshader.so";
-#else
-                    result = std::string("/vendor/lib/egl/lib") + kind + "_swiftshader.so";
-#endif
-                    return result;
                 default:
                     // Not in emulator, or use other guest-side implementation
                     break;
@@ -382,6 +374,12 @@ static void* load_system_driver(const char* kind) {
             //      libEGL_*.so, libGLESv1_CM_*.so, libGLESv2_*.so
 
             pattern.append("_");
+            {
+                // HACKED
+                char prop[PROPERTY_VALUE_MAX];
+                property_get("qemu.gles.vendor", prop, "swiftshader");
+                pattern.append(prop);
+            }
             for (size_t i=0 ; i<NELEM(searchPaths) ; i++) {
                 if (find(result, pattern, searchPaths[i], false)) {
                     return result;
