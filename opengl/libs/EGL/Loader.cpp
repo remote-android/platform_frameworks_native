@@ -374,6 +374,12 @@ static void* load_system_driver(const char* kind) {
             //      libEGL_*.so, libGLESv1_CM_*.so, libGLESv2_*.so
 
             pattern.append("_");
+            {
+                // HACKED
+                char prop[PROPERTY_VALUE_MAX];
+                property_get("qemu.gles.vendor", prop, "swiftshader");
+                pattern.append(prop);
+            }
             for (size_t i=0 ; i<NELEM(searchPaths) ; i++) {
                 if (find(result, pattern, searchPaths[i], false)) {
                     return result;
