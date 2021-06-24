@@ -1833,7 +1833,10 @@ void SurfaceFlinger::rebuildLayerStacks() {
                                 layer->visibleNonTransparentRegion));
                         drawRegion.andSelf(bounds);
                         if (!drawRegion.isEmpty()) {
-                            if (!displayDevice->isPrimary()) layersSortedByZ.add(layer); // HACKED
+                            char value[PROPERTY_VALUE_MAX] = {};
+                            // HACKED disable for performance
+                            property_get("ro.kernel.redroid.enable_built_in_display", value, "0");
+                            if (!displayDevice->isPrimary() || std::atoi(value)) layersSortedByZ.add(layer);
                         } else {
                             // Clear out the HWC layer if this layer was
                             // previously visible, but no longer is
