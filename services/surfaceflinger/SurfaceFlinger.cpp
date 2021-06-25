@@ -2208,7 +2208,10 @@ void SurfaceFlinger::rebuildLayerStacks() {
                                 layer->visibleNonTransparentRegion));
                         drawRegion.andSelf(bounds);
                         if (!drawRegion.isEmpty()) {
-                            if (!displayDevice->isPrimary()) needsOutputLayer = true; // HACKED
+                            char value[PROPERTY_VALUE_MAX] = {};
+                            // HACKED disable for performance
+                            property_get("ro.kernel.redroid.enable_built_in_display", value, "0");
+                            if (!displayDevice->isPrimary() || std::atoi(value)) needsOutputLayer = true;
                         }
                     }
 
