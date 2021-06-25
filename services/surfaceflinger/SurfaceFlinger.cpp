@@ -2048,7 +2048,10 @@ void SurfaceFlinger::onMessageRefresh() {
     const auto& displays = ON_MAIN_THREAD(mDisplays);
     refreshArgs.outputs.reserve(displays.size());
     for (const auto& [_, display] : displays) {
-        if (display->isPrimary()) continue; // HACKED
+        if (display->isPrimary()) {
+            // HACKED disable for performance
+            if (!property_get_bool("ro.kernel.redroid.enable_built_in_display", false)) continue;
+        }
         refreshArgs.outputs.push_back(display->getCompositionDisplay());
     }
     mDrawingState.traverseInZOrder([&refreshArgs](Layer* layer) {
