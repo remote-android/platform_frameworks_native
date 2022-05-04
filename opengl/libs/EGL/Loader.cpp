@@ -377,7 +377,7 @@ static void* load_system_driver(const char* kind) {
             {
                 // HACKED
                 char prop[PROPERTY_VALUE_MAX];
-                property_get("qemu.gles.vendor", prop, "swiftshader");
+                property_get("ro.hardware.egl", prop, "swiftshader");
                 pattern.append(prop);
             }
             for (size_t i=0 ; i<NELEM(searchPaths) ; i++) {
